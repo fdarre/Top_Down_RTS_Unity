@@ -31,6 +31,7 @@ public class Unit : MonoBehaviour
             Vector3 moveDirection = (_targetPosition - transform.position).normalized;
 
             transform.position += moveDirection * (moveSpeed * Time.deltaTime);
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * _rotationSpeed);
         }
         else
         {
@@ -59,6 +60,7 @@ public class Unit : MonoBehaviour
     private Vector3 _targetPosition;
     private Animator _animator;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    private float _rotationSpeed = 12f;
 
     #endregion
 }
