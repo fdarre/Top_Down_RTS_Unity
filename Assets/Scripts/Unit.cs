@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -5,6 +6,15 @@ public class Unit : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField] private float moveSpeed = 4f;
+
+    #endregion
+
+    #region Initialization
+
+    private void Awake()
+    {
+        _animator = GetComponentInChildren<Animator>();
+    }
 
     #endregion
 
@@ -16,9 +26,15 @@ public class Unit : MonoBehaviour
 
         if (Vector3.Distance(transform.position, _targetPosition) > stoppingDistance)
         {
+            _animator.SetBool(IsWalking, true);
+
             Vector3 moveDirection = (_targetPosition - transform.position).normalized;
 
             transform.position += moveDirection * (moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            _animator.SetBool(IsWalking, false);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -41,6 +57,8 @@ public class Unit : MonoBehaviour
     #region Private Fields
 
     private Vector3 _targetPosition;
+    private Animator _animator;
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking");
 
     #endregion
 }
