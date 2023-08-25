@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -13,6 +12,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
+        _targetPosition = transform.position;
         _animator = GetComponentInChildren<Animator>();
     }
 
@@ -38,17 +38,13 @@ public class Unit : MonoBehaviour
             _animator.SetBool(IsWalking, false);
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Move(MouseWorld.GetPosition());
-        }
     }
 
     #endregion
 
     #region Private Methods
 
-    private void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition)
     {
         _targetPosition = targetPosition;
     }
