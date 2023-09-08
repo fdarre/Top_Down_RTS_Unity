@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using TurnBased3DRTS.Units;
+
 namespace TurnBased3DRTS.Grid
 {
     /// <summary>
@@ -7,6 +10,7 @@ namespace TurnBased3DRTS.Grid
     {
         private GridPosition _gridPosition;
         private GridSystem _gridSystem;
+        private List<Unit> _unitList;
 
         /// <summary>
         /// Initializes a new instance of GridObject with the given GridSystem and GridPosition.
@@ -17,11 +21,34 @@ namespace TurnBased3DRTS.Grid
         {
             _gridSystem = gridsystem;
             _gridPosition = gridposition;
+            _unitList = new List<Unit>();
         }
 
         public override string ToString()
         {
-            return _gridPosition.ToString();
+            string unitListString = "";
+
+            foreach (Unit unit in _unitList)
+            {
+                unitListString += unit.name + "\n";
+            }
+
+            return _gridPosition + "\n" + unitListString;
+        }
+
+        public void AddUnit(Unit unit)
+        {
+            _unitList.Add(unit);
+        }
+
+        public void RemoveUnit(Unit unit)
+        {
+            _unitList.Remove(unit);
+        }
+
+        public List<Unit> GetUnitList()
+        {
+            return _unitList;
         }
     }
 }

@@ -1,3 +1,6 @@
+using System;
+using Grid;
+using TurnBased3DRTS.Grid;
 using UnityEngine;
 
 namespace TurnBased3DRTS.Units
@@ -18,6 +21,7 @@ namespace TurnBased3DRTS.Units
 
         private Vector3 _targetPosition;
         private Animator _animator;
+        private GridPosition _gridPosition;
 
         [Tooltip("Hash for the 'IsWalking' animator parameter.")]
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
@@ -33,6 +37,12 @@ namespace TurnBased3DRTS.Units
         {
             _targetPosition = transform.position;
             _animator = GetComponentInChildren<Animator>();
+        }
+
+        private void Start()
+        {
+            _gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+            LevelGrid.Instance.AddUnitAtGridPosition(_gridPosition, this);
         }
 
         #endregion
@@ -55,6 +65,13 @@ namespace TurnBased3DRTS.Units
             else
             {
                 _animator.SetBool(IsWalking, false);
+            }
+
+            GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+            if (newGridPosition != _gridPosition)
+            {
+                LevelGrid.Instance.UnitMovedGridPosition(this, _gridPosition, newGridPosition);
+                _gridPosition = newGridPosition;
             }
         }
 
