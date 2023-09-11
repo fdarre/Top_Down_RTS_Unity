@@ -49,6 +49,11 @@ namespace TurnBased3DRTS.Units
             return _moveAction;
         }
 
+        public GridPosition GetGridPosition()
+        {
+            return _gridPosition;
+        }
+
         #endregion
     }
 }

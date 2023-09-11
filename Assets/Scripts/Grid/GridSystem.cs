@@ -87,5 +87,16 @@ namespace TurnBased3DRTS.Grid
         {
             return _gridObjectsArray2D[gridPosition.X, gridPosition.Z];
         }
+
+        /// <summary>
+        /// Checks if a grid position is within the bounds of the grid.
+        /// </summary>
+        public bool IsValidGridPosition(GridPosition gridPosition)
+        {
+            return gridPosition.X >= 0 &&
+                   gridPosition.X < _width &&
+                   gridPosition.Z >= 0 &&
+                   gridPosition.Z < _height;
+        }
     }
 }

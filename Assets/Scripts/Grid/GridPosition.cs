@@ -72,5 +72,21 @@ namespace TurnBased3DRTS.Grid
         {
             return HashCode.Combine(X, Z);
         }
+
+        /// <summary>
+        /// Returns a new GridPosition instance with the X and Z coordinates added together.
+        /// </summary>
+        public static GridPosition operator +(GridPosition a, GridPosition b)
+        {
+            return new GridPosition(a.X + b.X, a.Z + b.Z);
+        }
+
+        /// <summary>
+        /// Returns a new GridPosition instance with the X and Z coordinates subtracted.
+        /// </summary>
+        public static GridPosition operator -(GridPosition a, GridPosition b)
+        {
+            return new GridPosition(a.X - b.X, a.Z - b.Z);
+        }
     }
 }

@@ -1,6 +1,8 @@
 using System;
+using Grid;
 using UnityEngine;
 using TurnBased3DRTS.Controls;
+using TurnBased3DRTS.Grid;
 
 namespace TurnBased3DRTS.Units
 {
@@ -62,7 +64,13 @@ namespace TurnBased3DRTS.Units
             {
                 if(TryHandleUnitSelection()) return;
 
-                SelectedUnit.GetMoveAction().Move(MouseWorld.GetPosition());
+                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+                if (SelectedUnit.GetMoveAction().IsValidMovePosition(mouseGridPosition))
+                {
+                    SelectedUnit.GetMoveAction().Move(mouseGridPosition);
+                }
+
             }
         }
 
