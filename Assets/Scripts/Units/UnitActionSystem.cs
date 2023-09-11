@@ -62,7 +62,7 @@ namespace TurnBased3DRTS.Units
             {
                 if(TryHandleUnitSelection()) return;
 
-                SelectedUnit.Move(MouseWorld.GetPosition());
+                SelectedUnit.GetMoveAction().Move(MouseWorld.GetPosition());
             }
         }
 
