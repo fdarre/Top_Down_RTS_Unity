@@ -98,5 +98,8 @@ namespace TurnBased3DRTS.Grid
                    gridPosition.Z >= 0 &&
                    gridPosition.Z < _height;
         }
+
+        public int GetWidth() => _width;
+        public int GetHeight() => _height;
     }
 }
