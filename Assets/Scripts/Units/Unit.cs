@@ -1,6 +1,6 @@
+using TurnBased3DRTS.Actions;
 using Grid;
 using TurnBased3DRTS.Grid;
-using Units;
 using UnityEngine;
 
 namespace TurnBased3DRTS.Units
@@ -14,6 +14,7 @@ namespace TurnBased3DRTS.Units
 
         private GridPosition _gridPosition;
         private MoveAction _moveAction;
+        private SpinAction _spinAction;
 
         #endregion
 
@@ -22,6 +23,7 @@ namespace TurnBased3DRTS.Units
         private void Awake()
         {
             _moveAction = GetComponent<MoveAction>();
+            _spinAction = GetComponent<SpinAction>();
         }
 
         private void Start()
@@ -47,6 +49,11 @@ namespace TurnBased3DRTS.Units
         public MoveAction GetMoveAction()
         {
             return _moveAction;
+        }
+
+        public SpinAction GetSpinAction()
+        {
+            return _spinAction;
         }
 
         public GridPosition GetGridPosition()

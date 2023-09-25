@@ -30,6 +30,14 @@ namespace TurnBased3DRTS.Units
 
         #endregion
 
+        #region Private Fields
+
+        private bool _isBusy;
+
+        #endregion
+
+
+
         #region Events
 
         /// <summary>
@@ -60,6 +68,8 @@ namespace TurnBased3DRTS.Units
 
         private void Update()
         {
+            if(_isBusy) return;
+
             if (Input.GetMouseButtonDown(0))
             {
                 if(TryHandleUnitSelection()) return;
@@ -68,9 +78,16 @@ namespace TurnBased3DRTS.Units
 
                 if (SelectedUnit.GetMoveAction().IsValidMovePosition(mouseGridPosition))
                 {
-                    SelectedUnit.GetMoveAction().Move(mouseGridPosition);
+                    SetBusy();
+                    SelectedUnit.GetMoveAction().Move(mouseGridPosition, ClearBusy);
                 }
 
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                SetBusy();
+                SelectedUnit.GetSpinAction().Spin(ClearBusy);
             }
         }
 
@@ -106,6 +123,22 @@ namespace TurnBased3DRTS.Units
 
             // Null check to avoid null reference exception if there are no event subscribers
             OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Sets the busy flag to true when the unit action system is busy.
+        /// </summary>
+        private void SetBusy()
+        {
+            _isBusy = true;
+        }
+
+        /// <summary>
+        /// Clears the busy flag when the unit action system is no longer busy and ready for another action
+        /// </summary>
+        private void ClearBusy()
+        {
+            _isBusy = false;
         }
 
         #endregion

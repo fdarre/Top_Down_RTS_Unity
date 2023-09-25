@@ -1942,6 +1942,7 @@ GameObject:
   - component: {fileID: 433469479392778169}
   - component: {fileID: 1614949863958030525}
   - component: {fileID: 4166214834419772404}
+  - component: {fileID: -4677302365045555736}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -1978,7 +1979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5dc185059854194c86415d2d06d90fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
 --- !u!65 &1614949863958030525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2010,6 +2010,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf2af4380d55ae2409696ffd6355772d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 4
+  _maxMoveDistance: 4
+--- !u!114 &-4677302365045555736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6392704072985368174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd69561891d42644d8136c094a0c0159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6495526315963088981

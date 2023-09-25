@@ -58,8 +58,6 @@ namespace TurnBased3DRTS.Units
         /// </summary>
         private void UpdateVisual()
         {
-            Debug.Log("UnitActionSystem_OnSelectedUnitChanged - " + UnitActionSystem.Instance.SelectedUnit.name);
-
             if (UnitActionSystem.Instance.SelectedUnit == unit)
             {
                 _meshRenderer.enabled = true;

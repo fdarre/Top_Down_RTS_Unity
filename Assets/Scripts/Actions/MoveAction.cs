@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using Grid;
 using TurnBased3DRTS.Grid;
-using TurnBased3DRTS.Units;
 using UnityEngine;
 
-namespace Units
+namespace TurnBased3DRTS.Actions
 {
-    public class MoveAction : MonoBehaviour
+    public class MoveAction : BaseAction
     {
         #region Fields
 
@@ -24,36 +23,42 @@ namespace Units
 
         private Vector3 _targetPosition;
         private Animator _animator;
-        private Unit _unit;
+        private ActionCompleteDelegate _onActionComplete;
 
         #endregion
 
         #region Unity Methods
 
-        private void Awake()
+        protected override void Awake()
         {
-            _targetPosition = transform.position;
+            base.Awake();
             _animator = GetComponentInChildren<Animator>();
-            _unit = GetComponent<Unit>();
+            _targetPosition = transform.position;
+
         }
 
         private void Update()
         {
+            if (!isActive) return;
+
             float stoppingDistance = 0.1f;
+
+            Vector3 moveDirection = (_targetPosition - transform.position).normalized;
 
             if (Vector3.Distance(transform.position, _targetPosition) > stoppingDistance)
             {
                 _animator.SetBool(IsWalking, true);
-
-                Vector3 moveDirection = (_targetPosition - transform.position).normalized;
-
                 transform.position += moveDirection * (_moveSpeed * Time.deltaTime);
-                transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * _rotationSpeed);
+
             }
             else
             {
                 _animator.SetBool(IsWalking, false);
+                isActive = false;
+                _onActionComplete();
             }
+
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * _rotationSpeed);
         }
 
         #endregion
@@ -64,15 +69,20 @@ namespace Units
         /// Directs the unit to move towards the specified target position.
         /// </summary>
         /// <param name="targetPosition">The position to move towards.</param>
-        public void Move(GridPosition targetPosition)
+        /// <param name="onActionComplete">The delegate to be called when the action is complete.</param>
+        public void Move(GridPosition targetPosition, ActionCompleteDelegate onActionComplete = null)
         {
             _targetPosition = LevelGrid.Instance.GetWorldPosition(targetPosition);
+            isActive = true;
+            this._onActionComplete = onActionComplete;
         }
+
+
 
         public List<GridPosition> GetValidGridPositionsList()
         {
             List<GridPosition> validGridPositionsList = new List<GridPosition>();
-            GridPosition unitGridPosition = _unit.GetGridPosition();
+            GridPosition unitGridPosition = unit.GetGridPosition();
 
             for (int x = -_maxMoveDistance; x < _maxMoveDistance; x++)
             {
