@@ -15,6 +15,7 @@ namespace TurnBased3DRTS.Units
         private GridPosition _gridPosition;
         private MoveAction _moveAction;
         private SpinAction _spinAction;
+        private BaseAction[] _baseActionsArray;
 
         #endregion
 
@@ -24,6 +25,7 @@ namespace TurnBased3DRTS.Units
         {
             _moveAction = GetComponent<MoveAction>();
             _spinAction = GetComponent<SpinAction>();
+            _baseActionsArray = GetComponents<BaseAction>();
         }
 
         private void Start()
@@ -59,6 +61,11 @@ namespace TurnBased3DRTS.Units
         public GridPosition GetGridPosition()
         {
             return _gridPosition;
+        }
+
+        public BaseAction[] GetBaseActionsArray()
+        {
+            return _baseActionsArray;
         }
 
         #endregion

@@ -14,5 +14,7 @@ namespace TurnBased3DRTS.Actions
         {
             unit = GetComponent<Unit>();
         }
+
+        public abstract string GetActionName();
     }
 }

@@ -37,6 +37,11 @@ namespace TurnBased3DRTS.Actions
 
         }
 
+        public override string GetActionName()
+        {
+            return "Move";
+        }
+
         private void Update()
         {
             if (!isActive) return;

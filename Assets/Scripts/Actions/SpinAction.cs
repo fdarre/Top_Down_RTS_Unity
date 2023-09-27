@@ -31,5 +31,10 @@ namespace TurnBased3DRTS.Actions
          _totalSpinAmount = 0f;
          this._onActionComplete = onActionComplete;
       }
+
+      public override string GetActionName()
+      {
+         return "Spin";
+      }
    }
 }
